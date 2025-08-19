@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibit A Intake Form</title>
+    <!-- Load Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5e9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Set Cifelli Law brand fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F6F3EA; /* Off-White Base BG */
+        }
+        h1, h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+        }
+        
+        /* Highlight required fields with a red border */
+        .highlight-missing {
+            border-color: #ef4444 !important;
+        }
+
+        /* Styles for disabled/hidden fields */
+        .disabled-field {
+            background-color: #e2e8f0;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+        
+        /* Button styles to match brand kit */
+        .btn-primary {
+            background-color: #8A6A33;
+            color: #FFFFFF;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            outline: 2px solid #001942;
+            outline-offset: -2px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="p-8 text-[#0A0A0A]"> <!-- Charcoal body text -->
+    <div class="max-w-7xl mx-auto bg-[#FFFFFF] rounded-xl shadow-lg p-8 space-y-8">
+        <!-- Main Header -->
+        <header class="text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#001942]">Exhibit A: Intake Form</h1>
+            <div class="w-1/4 mx-auto mt-2 h-1 bg-[#8A6A33]"></div> <!-- Bronze rule divider -->
+            <p class="mt-4 text-gray-500">A complete sheet for collecting and validating key information based on all provided documents.</p>
+        </header>
+        
+        <!-- Client Name Section -->
+        <div class="bg-[#F6F3EA] p-6 rounded-lg border border-gray-200 shadow-sm">
+            <label for="clientName" class="block text-sm font-semibold text-gray-700">Decedent's Full Name:</label>
+            <input type="text" id="clientName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white" placeholder="Enter full name">
+        </div>
+
+        <!-- Main Content Grid -->
+        <main class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Side: Marital History & Beneficiaries -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Marital History Section -->
+                <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
+                    <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-[#001942]">1. Marital History</h2>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Click "Add Marriage" to add a new marriage record.</p>
+                    <div class="overflow-x-auto">
+                        <table id="maritalHistoryTable" class="w-full text-left text-sm text-gray-500 border-collapse">
+                            <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
+                                <tr>
+                                    <th scope="col" class="py-3 px-6 rounded-tl-lg">Marriage #</th>
+                                    <th scope="col" class="py-3 px-6 w-1/3">Spouse Name</th>
+                                    <th scope="col" class="py-3 px-6">Marriage Date</th>
+                                    <th scope="col" class="py-3 px-6">How Ended</th>
+                                    <th scope="col" class="py-3 px-6">End Date</th>
+                                    <th scope="col" class="py-3 px-6">Spouse Alive?</th>
+                                    <th scope="col" class="py-3 px-6">Children Count</th>
+                                    <th scope="col" class="py-3 px-6 rounded-tr-lg"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be dynamically created here via JavaScript -->
+                            </tbody>
+                            <tfoot class="bg-[#FFFFFF]">
+                                <tr>
+                                    <td colspan="8" class="p-3 text-center">
+                                        <button id="addMaritalRowBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-150 btn-primary">
+                                            Add Marriage
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Beneficiaries Section -->
+                <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
+                    <h2 class="text-2xl font-bold text-[#001942] mb-4">2. Beneficiaries</h2>
+                    <p class="text-gray-500 text-sm mb-4">List all beneficiaries, including heirs and legatees. This form collects all information required by Exhibit A.</p>
+                    <div class="overflow-x-auto">
+                        <table id="beneficiariesTable" class="w-full text-left text-sm text-gray-500 border-collapse">
+                            <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
+                                <tr>
+                                    <th scope="col" class="py-3 px-6 rounded-tl-lg">#</th>
+                                    <th scope="col" class="py-3 px-6">Type</th>
+                                    <th scope="col" class="py-3 px-6">Relation</th>
+                                    <th scope="col" class="py-3 px-6 w-1/5">Name</th>
+                                    <th scope="col" class="py-3 px-6">Date of Birth</th>
+                                    <th scope="col" class="py-3 px-6">Minor?</th>
+                                    <th scope="col" class="py-3 px-6">Disabled?</th>
+                                    <th scope="col" class="py-3 px-6">Survived?</th>
+                                    <th scope="col" class="py-3 px-6">Date of Death</th>
+                                    <th scope="col" class="py-3 px-6 w-1/4">Address</th>
+                                    <th scope="col" class="py-3 px-6">Email</th>
+                                    <th scope="col" class="py-3 px-6">Phone</th>
+                                    <th scope="col" class="py-3 px-6">Notice to Rep?</th>
+                                    <th scope="col" class="py-3 px-6">Portion</th>
+                                    <th scope="col" class="py-3 px-6 rounded-tr-lg"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be dynamically created here via JavaScript -->
+                            </tbody>
+                            <tfoot class="bg-[#FFFFFF]">
+                                <tr>
+                                    <td colspan="15" class="p-3 text-center">
+                                        <button id="addBeneficiaryRowBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-150 btn-primary">
+                                            Add Beneficiary
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- Complete Form Button -->
+                <div class="text-center mt-8">
+                    <button id="completeFormBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-colors duration-150 btn-primary">
+                        Complete & Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side: Checklist Dashboard -->
+            <div class="lg:col-span-1">
+                <section class="bg-[#FFFFFF] p-6 rounded-lg shadow-inner sticky top-8">
+                    <h2 class="text-2xl font-bold text-[#001942] mb-4">3. Checklist & Quality Rules</h2>
+                    <p class="text-gray-500 text-sm mb-4">Track progress and identify any missing information. All checks should ideally be green.</p>
+                    <div class="space-y-4">
+                        <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
+                            <h3 class="font-semibold text-gray-700">Total Marriages Recorded</h3>
+                            <div id="totalMarriagesCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
+                            <p class="text-xs text-gray-400 mt-1">Total marriage rows in the table.</p>
+                        </div>
+                        <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
+                            <h3 class="font-semibold text-gray-700">Total Children across Marriages</h3>
+                            <div id="totalChildrenCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
+                            <p class="text-xs text-gray-400 mt-1">Calculated from the Marital History section.</p>
+                        </div>
+                        <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
+                            <h3 class="font-semibold text-gray-700">Beneficiaries with 'Child' Relation</h3>
+                            <div id="childrenBeneficiaryCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
+                            <p class="text-xs text-gray-400 mt-1">Counted from the Beneficiaries section.</p>
+                        </div>
+                        <div class="bg-[#F6F3EA] rounded-lg p-4 shadow transition-colors duration-300">
+                            <h3 class="font-semibold text-gray-700">Children Not Yet Represented</h3>
+                            <div id="deficitCount" class="text-3xl font-bold mt-2 text-red-600">0</div>
+                            <p class="text-xs text-gray-400 mt-1">This number should be 0 to ensure all children are listed as beneficiaries.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data sources for dropdowns
+        const relationOptions = ['Spouse', 'Child', 'Grandchild', 'Parent', 'Sibling', 'Charity', 'Trustee', 'Other'];
+        const typeOptions = ['Heir', 'Legatee', 'Both'];
+        const howEndedOptions = ['Still married at death', 'Death', 'Divorce', 'Annulment', 'Separated'];
+        const yesNoOptions = ['Yes', 'No'];
+        const representativeRoleOptions = ['Guardian of the Estate', 'Agent under Power of Attorney', 'Nominated Personal Fiduciary'];
+        const portionOptions = ['Preference', 'Equal'];
+
+        // Get DOM elements
+        const clientNameInput = document.getElementById('clientName');
+        const maritalHistoryTableBody = document.getElementById('maritalHistoryTable').querySelector('tbody');
+        const beneficiariesTableBody = document.getElementById('beneficiariesTable').querySelector('tbody');
+        const addMaritalRowBtn = document.getElementById('addMaritalRowBtn');
+        const addBeneficiaryRowBtn = document.getElementById('addBeneficiaryRowBtn');
+        const totalMarriagesCount = document.getElementById('totalMarriagesCount');
+        const totalChildrenCount = document.getElementById('totalChildrenCount');
+        const childrenBeneficiaryCount = document.getElementById('childrenBeneficiaryCount');
+        const deficitCount = document.getElementById('deficitCount');
+        const deficitContainer = deficitCount.closest('.bg-white');
+        const completeFormBtn = document.getElementById('completeFormBtn');
+
+        let maritalRows = 0;
+        let beneficiaryRows = 0;
+
+        // Function to create an option element for a select dropdown
+        const createOption = (value, text) => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = text;
+            return option;
+        };
+
+        // Function to create a table cell with a select dropdown
+        const createSelectCell = (options, className) => {
+            const td = document.createElement('td');
+            td.className = 'py-3 px-6';
+            const select = document.createElement('select');
+            select.className = `w-full p-1 border border-gray-300 rounded-md bg-white ${className}`;
+            select.appendChild(createOption('', 'Select...'));
+            options.forEach(option => select.appendChild(createOption(option, option)));
+            td.appendChild(select);
+            return td;
+        };
+
+        // Function to create a table cell with an input field
+        const createInputCell = (type, placeholder, className, min, max, disabled = false) => {
+            const td = document.createElement('td');
+            td.className = 'py-3 px-6';
+            const input = document.createElement('input');
+            input.type = type;
+            input.className = `w-full p-1 border border-gray-300 rounded-md bg-white ${className}`;
+            input.placeholder = placeholder;
+            if (min !== undefined) input.min = min;
+            if (max !== undefined) input.max = max;
+            if (disabled) {
+                input.disabled = true;
+                td.classList.add('disabled-field');
+            }
+            td.appendChild(input);
+            return td;
+        };
+        
+        // Function to create a table cell with a checkbox
+        const createCheckboxCell = (className) => {
+            const td = document.createElement('td');
+            td.className = 'py-3 px-6 text-center';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = `form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 ${className}`;
+            td.appendChild(checkbox);
+            return td;
+        };
+        
+        // Function to create a table cell with a delete button
+        const createDeleteButtonCell = (tableId) => {
+            const td = document.createElement('td');
+            td.className = 'py-3 px-6 text-center';
+            td.innerHTML = `<button class="text-red-500 hover:text-red-700 transition-colors duration-150" onclick="removeRow(this, '${tableId}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 112 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                </svg>
+            </button>`;
+            return td;
+        };
+
+        // Adds a new marriage row to the table
+        const addMaritalHistoryRow = () => {
+            maritalRows++;
+            const newRow = document.createElement('tr');
+            newRow.className = 'bg-white border-b hover:bg-gray-50 transition-colors duration-150';
+
+            // Marriage number column
+            const marriageNumCell = document.createElement('td');
+            marriageNumCell.className = 'py-3 px-6';
+            marriageNumCell.textContent = maritalRows;
+            newRow.appendChild(marriageNumCell);
+
+            // Spouse Name
+            newRow.appendChild(createInputCell('text', 'Spouse Full Name', 'spouse-name'));
+            // Marriage Date
+            newRow.appendChild(createInputCell('date', 'YYYY-MM-DD', 'marriage-date'));
+            // How Ended dropdown
+            newRow.appendChild(createSelectCell(howEndedOptions, 'how-ended-select'));
+            // End Date
+            newRow.appendChild(createInputCell('date', 'YYYY-MM-DD', 'end-date'));
+            // Spouse Alive dropdown
+            newRow.appendChild(createSelectCell(yesNoOptions, 'spouse-alive-select'));
+            // Children Count input
+            newRow.appendChild(createInputCell('number', '0', 'children-count-input', '0', '20'));
+            // Delete button
+            newRow.appendChild(createDeleteButtonCell('maritalHistoryTable'));
+            
+            maritalHistoryTableBody.appendChild(newRow);
+            updateChecklist();
+        };
+        
+        // Adds a new beneficiary row to the table
+        const addBeneficiaryRow = () => {
+            beneficiaryRows++;
+            const newRow = document.createElement('tr');
+            newRow.id = `beneficiary-row-${beneficiaryRows}`;
+            newRow.className = 'bg-white border-b hover:bg-gray-50 transition-colors duration-150';
+            
+            // Beneficiary number
+            const benNumCell = document.createElement('td');
+            benNumCell.className = 'py-3 px-6';
+            benNumCell.textContent = beneficiaryRows;
+            newRow.appendChild(benNumCell);
+            
+            // Type dropdown
+            const typeSelectCell = createSelectCell(typeOptions, 'beneficiary-type');
+            newRow.appendChild(typeSelectCell);
+            // Relation dropdown
+            const relationSelectCell = createSelectCell(relationOptions, 'beneficiary-relation');
+            newRow.appendChild(relationSelectCell);
+            // Name input
+            const nameInputCell = createInputCell('text', 'Full Name', 'beneficiary-name');
+            newRow.appendChild(nameInputCell);
+            // Date of Birth
+            const dobInputCell = createInputCell('date', 'YYYY-MM-DD', 'dob-input');
+            newRow.appendChild(dobInputCell);
+            // Minor? checkbox
+            const minorCheckboxCell = createCheckboxCell('minor-checkbox');
+            newRow.appendChild(minorCheckboxCell);
+            // Disabled? checkbox
+            const disabledCheckboxCell = createCheckboxCell('disabled-checkbox');
+            newRow.appendChild(disabledCheckboxCell);
+            
+            // Survived? dropdown
+            const survivedSelectCell = createSelectCell(yesNoOptions, 'survived-select');
+            newRow.appendChild(survivedSelectCell);
+            
+            // Date of Death
+            const dodCell = createInputCell('date', 'YYYY-MM-DD', 'dod-input', undefined, undefined, true);
+            newRow.appendChild(dodCell);
+            
+            // Address input
+            const addressInputCell = createInputCell('text', 'Street, City, State ZIP', 'beneficiary-address');
+            newRow.appendChild(addressInputCell);
+            // Email input
+            newRow.appendChild(createInputCell('email', 'Email', 'email-input'));
+            // Phone input
+            newRow.appendChild(createInputCell('tel', 'Phone', 'phone-input'));
+            
+            // Notice to Representative checkbox
+            const noticeCell = createCheckboxCell('notice-to-rep-checkbox');
+            newRow.appendChild(noticeCell);
+
+            // Portion (Preference/Equal)
+            newRow.appendChild(createSelectCell(portionOptions, 'portion-select'));
+            // Delete button
+            newRow.appendChild(createDeleteButtonCell('beneficiariesTable'));
+            
+            beneficiariesTableBody.appendChild(newRow);
+
+            // Attach all event listeners to the new row
+            const survivedSelect = survivedSelectCell.querySelector('select');
+            const dodInput = dodCell.querySelector('input');
+            const noticeCheckbox = noticeCell.querySelector('input');
+
+            survivedSelect.addEventListener('change', () => {
+                if (survivedSelect.value === 'No') {
+                    dodInput.disabled = false;
+                    dodInput.closest('td').classList.remove('disabled-field');
+                } else {
+                    dodInput.value = '';
+                    dodInput.disabled = true;
+                    dodInput.closest('td').classList.add('disabled-field');
+                    dodInput.classList.remove('highlight-missing');
+                }
+                updateChecklist();
+                checkBeneficiaryRow(newRow);
+            });
+            
+            noticeCheckbox.addEventListener('change', () => toggleRepresentativeRow(newRow, noticeCheckbox.checked));
+            
+            newRow.querySelector('.beneficiary-type').addEventListener('change', () => checkBeneficiaryRow(newRow));
+            newRow.querySelector('.beneficiary-relation').addEventListener('change', updateChecklist);
+            newRow.querySelector('.minor-checkbox').addEventListener('change', updateChecklist);
+            newRow.querySelector('.disabled-checkbox').addEventListener('change', updateChecklist);
+            newRow.querySelector('.beneficiary-name').addEventListener('input', () => checkBeneficiaryRow(newRow));
+            newRow.querySelector('.beneficiary-address').addEventListener('input', () => checkBeneficiaryRow(newRow));
+        };
+        
+        // Toggles the visibility of the representative's row
+        const toggleRepresentativeRow = (parentRow, isChecked) => {
+            const existingRepRow = document.getElementById(`rep-row-${parentRow.id}`);
+            if (isChecked) {
+                if (!existingRepRow) {
+                    const newRepRow = document.createElement('tr');
+                    newRepRow.id = `rep-row-${parentRow.id}`;
+                    newRepRow.className = 'bg-gray-100 border-b hover:bg-gray-200 transition-colors duration-150';
+                    newRepRow.innerHTML = `
+                        <td colspan="1" class="p-3"></td>
+                        <td colspan="14" class="p-3">
+                            <div class="p-4 rounded-lg border-2 border-dashed border-gray-300 space-y-2">
+                                <h4 class="font-semibold text-gray-700">Representative Details</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-semibold text-gray-500">Representative Name</label>
+                                        <input type="text" placeholder="Full Name" class="w-full p-1 border border-gray-300 rounded-md rep-name bg-white" oninput="checkRepresentativeRow(this.closest('tr'))">
+                                    </div>
+                                    <div class="col-span-1 sm:col-span-2">
+                                        <label class="block text-xs font-semibold text-gray-500">Representative Address</label>
+                                        <input type="text" placeholder="Street, City, State ZIP" class="w-full p-1 border border-gray-300 rounded-md rep-address bg-white" oninput="checkRepresentativeRow(this.closest('tr'))">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-semibold text-gray-500">Representative Role</label>
+                                        <select class="w-full p-1 border border-gray-300 rounded-md rep-role bg-white">
+                                            <option value="">Select...</option>
+                                            <option value="Guardian of the Estate">Guardian of the Estate</option>
+                                            <option value="Agent under Power of Attorney">Agent under Power of Attorney</option>
+                                            <option value="Nominated Personal Fiduciary">Nominated Personal Fiduciary</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-1 sm:col-span-2 lg:col-span-4">
+                                        <label class="block text-xs font-semibold text-gray-500">Notes</label>
+                                        <input type="text" placeholder="Notes for representative" class="w-full p-1 border border-gray-300 rounded-md bg-white">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    `;
+                    parentRow.insertAdjacentElement('afterend', newRepRow);
+                }
+            } else {
+                if (existingRepRow) {
+                    existingRepRow.remove();
+                }
+            }
+        };
+
+        // Checks for missing data in a beneficiary row and applies a highlight class
+        const checkBeneficiaryRow = (row) => {
+            // Check if the row exists before trying to access its properties.
+            if (!row) return;
+
+            const typeSelect = row.querySelector('.beneficiary-type');
+            const nameInput = row.querySelector('.beneficiary-name');
+            const addressInput = row.querySelector('.beneficiary-address');
+            const survivedSelect = row.querySelector('.survived-select');
+            const dodInput = row.querySelector('.dod-input');
+            
+            const isTypeSelected = typeSelect.value !== '';
+            const isNameMissing = nameInput.value === '';
+            const isAddressMissing = addressInput.value === '';
+            const isDodRequired = survivedSelect.value === 'No';
+            const isDodMissing = dodInput.value === '';
+
+            // Check primary fields
+            if (isTypeSelected) {
+                isNameMissing ? nameInput.classList.add('highlight-missing') : nameInput.classList.remove('highlight-missing');
+                isAddressMissing ? addressInput.classList.add('highlight-missing') : addressInput.classList.remove('highlight-missing');
+            } else {
+                nameInput.classList.remove('highlight-missing');
+                addressInput.classList.remove('highlight-missing');
+            }
+
+            // Check conditional field (Date of Death)
+            if (isDodRequired) {
+                isDodMissing ? dodInput.classList.add('highlight-missing') : dodInput.classList.remove('highlight-missing');
+            } else {
+                dodInput.classList.remove('highlight-missing');
+            }
+        };
+        
+        // Checks for missing data in a representative row and applies a highlight class
+        const checkRepresentativeRow = (row) => {
+            // Check if the row exists before trying to access its properties.
+            if (!row) return;
+            
+            const nameInput = row.querySelector('.rep-name');
+            const addressInput = row.querySelector('.rep-address');
+            const roleSelect = row.querySelector('.rep-role');
+            
+            const isNameMissing = nameInput.value === '';
+            const isAddressMissing = addressInput.value === '';
+            const isRoleMissing = roleSelect.value === '';
+
+            isNameMissing ? nameInput.classList.add('highlight-missing') : nameInput.classList.remove('highlight-missing');
+            isAddressMissing ? addressInput.classList.add('highlight-missing') : addressInput.classList.remove('highlight-missing');
+            isRoleMissing ? roleSelect.classList.add('highlight-missing') : roleSelect.classList.remove('highlight-missing');
+        };
+
+        // Recalculates the dashboard counts
+        const updateChecklist = () => {
+            // Count total marriages
+            totalMarriagesCount.textContent = document.querySelectorAll('#maritalHistoryTable tbody tr').length;
+
+            // Calculate total children from marital history
+            const childrenCountInputs = document.querySelectorAll('#maritalHistoryTable .children-count-input');
+            const totalChildren = Array.from(childrenCountInputs).reduce((sum, input) => sum + (parseInt(input.value, 10) || 0), 0);
+            totalChildrenCount.textContent = totalChildren;
+
+            // Count beneficiaries with a 'Child' relation
+            const childrenBeneficiaries = document.querySelectorAll('#beneficiariesTable .beneficiary-relation');
+            const childBeneficiaryCount = Array.from(childrenBeneficiaries).filter(select => select.value === 'Child').length;
+            childrenBeneficiaryCount.textContent = childBeneficiaryCount;
+
+            // Calculate deficit
+            const deficit = totalChildren - childBeneficiaryCount;
+            deficitCount.textContent = deficit;
+            
+            // Apply conditional styling to the deficit section
+            if (deficit > 0) {
+                deficitCount.classList.remove('text-green-600');
+                deficitCount.classList.add('text-red-600');
+                deficitContainer.classList.remove('bg-white');
+                deficitContainer.classList.add('bg-red-50');
+            } else {
+                deficitCount.classList.remove('text-red-600');
+                deficitCount.classList.add('text-green-600');
+                deficitContainer.classList.remove('bg-red-50');
+                deficitContainer.classList.add('bg-white');
+            }
+        };
+
+        // Function to remove a row from a table
+        const removeRow = (button, tableId) => {
+            const row = button.closest('tr');
+            
+            // If the row to be removed is a beneficiary row, also remove its representative row
+            if (tableId === 'beneficiariesTable') {
+                const repRow = document.getElementById(`rep-row-${row.id}`);
+                if (repRow) {
+                    repRow.remove();
+                }
+            }
+            
+            row.remove();
+            
+            // Recalculate row numbers
+            if (tableId === 'beneficiariesTable') {
+                beneficiaryRows--;
+                const rows = document.querySelectorAll('#beneficiariesTable tbody tr:not([id^="rep-row"])');
+                rows.forEach((r, index) => {
+                    r.id = `beneficiary-row-${index + 1}`;
+                    r.querySelector('td:first-child').textContent = index + 1;
+                });
+            } else if (tableId === 'maritalHistoryTable') {
+                 maritalRows--;
+                const rows = document.querySelectorAll('#maritalHistoryTable tbody tr');
+                rows.forEach((r, index) => {
+                    r.querySelector('td:first-child').textContent = index + 1;
+                });
+            }
+
+            updateChecklist();
+        };
+
+        // Function to collect all data and export to CSV
+        const exportToCsv = () => {
+            const clientName = clientNameInput.value.trim();
+            if (!clientName) {
+                alert('Please enter the client\'s full name before exporting.');
+                return;
+            }
+            
+            let csvContent = "";
+            let dataRows = [];
+
+            // --- Client Info ---
+            dataRows.push(['Client Name', clientName]);
+
+            // --- Marital History ---
+            const maritalHeader = ['Marriage #', 'Spouse Full Name', 'Marriage Date', 'How Ended', 'End Date', 'Spouse Alive?', 'Children Count'];
+            dataRows.push([]); // Empty row for separation
+            dataRows.push(['Section', 'Marital History']);
+            dataRows.push(maritalHeader);
+            const maritalRows = document.querySelectorAll('#maritalHistoryTable tbody tr');
+            maritalRows.forEach(row => {
+                const rowData = Array.from(row.querySelectorAll('td:not(:last-child)')).map(cell => {
+                    const input = cell.querySelector('input, select');
+                    if (input) {
+                        return `"${input.value}"`; // Quote to handle commas in address
+                    }
+                    return `"${cell.textContent}"`;
+                });
+                dataRows.push(rowData);
+            });
+            
+            // --- Beneficiaries ---
+            const benHeader = ['Beneficiary #', 'Type', 'Relation', 'Name', 'Date of Birth', 'Minor?', 'Disabled?', 'Survived?', 'Date of Death', 'Address', 'Email', 'Phone', 'Notice to Rep?', 'Portion'];
+            const repHeader = ['', 'Rep Name', 'Rep Address', 'Rep Role', 'Rep Notes']; // Added rep notes to header
+            dataRows.push([]);
+            dataRows.push(['Section', 'Beneficiaries']);
+            dataRows.push(benHeader.concat(repHeader));
+
+            const benRows = document.querySelectorAll('#beneficiariesTable tbody tr:not([id^="rep-row"])');
+            benRows.forEach(row => {
+                const rowData = Array.from(row.querySelectorAll('td')).map(cell => {
+                    const input = cell.querySelector('input, select');
+                    if (input) {
+                        if (input.type === 'checkbox') {
+                            return input.checked ? 'Yes' : 'No';
+                        }
+                        return `"${input.value}"`;
+                    }
+                    return `"${cell.textContent}"`;
+                });
+                
+                const repRow = document.getElementById(`rep-row-${row.id}`);
+                if (repRow) {
+                    const repData = [
+                        `"${repRow.querySelector('.rep-name').value}"`,
+                        `"${repRow.querySelector('.rep-address').value}"`,
+                        `"${repRow.querySelector('.rep-role').value}"`,
+                        `"${repRow.querySelector('.rep-notes').value}"`
+                    ];
+                    rowData.push(...repData);
+                } else {
+                    rowData.push('', '', '', '');
+                }
+                
+                dataRows.push(rowData);
+            });
+
+            // Flatten array and join into CSV string
+            csvContent = dataRows.map(e => e.join(",")).join("\n");
+
+            // Create a Blob and a download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            
+            // Set link attributes for download
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "ExhibitA_Intake_Form.csv");
+            link.style.display = 'none';
+            
+            document.body.appendChild(link);
+            link.click(); // Trigger the download
+            document.body.removeChild(link);
+        };
+        
+        // Initial setup and event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            updateChecklist();
+            
+            addMaritalRowBtn.addEventListener('click', addMaritalHistoryRow);
+            addBeneficiaryRowBtn.addEventListener('click', addBeneficiaryRow);
+            completeFormBtn.addEventListener('click', exportToCsv);
+
+            document.body.addEventListener('input', (event) => {
+                if (event.target.closest('#maritalHistoryTable, #beneficiariesTable')) {
+                    updateChecklist();
+                }
+            });
+            document.body.addEventListener('change', (event) => {
+                if (event.target.closest('#maritalHistoryTable, #beneficiariesTable')) {
+                    updateChecklist();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
