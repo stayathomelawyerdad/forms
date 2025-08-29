@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Transition Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; max-width: 700px; }
+    h1 { text-align: center; }
+    section { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input[type="text"], input[type="email"], input[type="number"], select, textarea {
+      width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;
+    }
+    .question { margin-bottom: 15px; }
+    button { padding: 10px 15px; border: none; background: #0069d9; color: #fff; border-radius: 4px; }
+    #results { white-space: pre-wrap; border: 1px solid #ccc; padding: 10px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Career Transition Quiz</h1>
+  <form id="careerForm">
+    <section>
+      <h2>About You</h2>
+      <div class="question"><label>Name<input type="text" name="name" required></label></div>
+      <div class="question"><label>Email<input type="email" name="email"></label></div>
+      <div class="question"><label>Location<input type="text" name="location"></label></div>
+    </section>
+    <section>
+      <h2>Strengths & Interests</h2>
+      <div class="question">
+        <label>What skills do you most enjoy using?</label>
+        <textarea name="skills" rows="3"></textarea>
+      </div>
+      <div class="question">
+        <label>Which activities make you lose track of time?</label>
+        <textarea name="flow" rows="3"></textarea>
+      </div>
+      <div class="question">
+        <label>Preferred work style</label>
+        <select name="workStyle">
+          <option value="team">Collaborative team</option>
+          <option value="solo">Independent</option>
+          <option value="hybrid">Hybrid</option>
+        </select>
+      </div>
+    </section>
+    <section>
+      <h2>Values & Environment</h2>
+      <div class="question">
+        <label>Most important workplace values</label>
+        <textarea name="values" rows="3"></textarea>
+      </div>
+      <div class="question">
+        <label>Ideal work environment</label>
+        <select name="environment">
+          <option value="corporate">Structured corporate</option>
+          <option value="startup">Fast-paced startup</option>
+          <option value="remote">Fully remote</option>
+          <option value="flexible">Flexible/Hybrid</option>
+        </select>
+      </div>
+      <div class="question">
+        <label>Desired impact</label>
+        <textarea name="impact" rows="3"></textarea>
+      </div>
+    </section>
+    <section>
+      <h2>Success & Lifestyle</h2>
+      <div class="question">
+        <label>Target annual salary (USD)</label>
+        <input type="number" name="salary" min="0" step="1000">
+      </div>
+      <div class="question">
+        <label>Ideal work-life balance</label>
+        <select name="balance">
+          <option value="standard">Standard 40 hrs</option>
+          <option value="flexible">Flexible schedule</option>
+          <option value="overtime">Occasional overtime</option>
+          <option value="intense">High intensity, high reward</option>
+        </select>
+      </div>
+      <div class="question">
+        <label>Long-term career goals</label>
+        <textarea name="goals" rows="3"></textarea>
+      </div>
+    </section>
+    <section>
+      <h2>Preferences</h2>
+      <div class="question">
+        <label>Preferred industries</label>
+        <input type="text" name="industries" placeholder="Tech, finance, healthcare...">
+      </div>
+      <div class="question">
+        <label>People or tasks you enjoy working with</label>
+        <textarea name="people" rows="3"></textarea>
+      </div>
+      <div class="question">
+        <label>Open to additional training or education?</label>
+        <select name="training">
+          <option value="yes">Yes</option>
+          <option value="maybe">Maybe</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+    </section>
+    <button type="submit">Generate Summary</button>
+  </form>
+  <h2>Summary for Your Agent</h2>
+  <pre id="results"></pre>
+  <script>
+    document.getElementById('careerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      let summary = `Name: ${data.get('name')}` + '\n';
+      summary += `Email: ${data.get('email')}` + '\n';
+      summary += `Location: ${data.get('location')}` + '\n\n';
+      summary += `Skills I enjoy: ${data.get('skills')}` + '\n';
+      summary += `Activities that engage me: ${data.get('flow')}` + '\n';
+      summary += `Preferred work style: ${data.get('workStyle')}` + '\n\n';
+      summary += `Workplace values: ${data.get('values')}` + '\n';
+      summary += `Ideal environment: ${data.get('environment')}` + '\n';
+      summary += `Desired impact: ${data.get('impact')}` + '\n\n';
+      summary += `Target salary: $${data.get('salary')}` + '\n';
+      summary += `Work-life balance: ${data.get('balance')}` + '\n';
+      summary += `Long-term goals: ${data.get('goals')}` + '\n\n';
+      summary += `Preferred industries: ${data.get('industries')}` + '\n';
+      summary += `People/tasks I enjoy: ${data.get('people')}` + '\n';
+      summary += `Open to training: ${data.get('training')}` + '\n\n';
+
+      const suggestions = [];
+      const style = data.get('workStyle');
+      if (style === 'team') suggestions.push('Project Manager', 'Product Manager');
+      if (style === 'solo') suggestions.push('Data Analyst', 'Software Developer');
+      if (style === 'hybrid') suggestions.push('Consultant', 'UX Designer');
+
+      const env = data.get('environment');
+      if (env === 'startup') suggestions.push('Growth Marketer', 'Full-Stack Developer');
+      else if (env === 'corporate') suggestions.push('Business Analyst', 'Finance Manager');
+      else if (env === 'remote') suggestions.push('Software Engineer', 'Content Strategist');
+      else if (env === 'flexible') suggestions.push('Freelance Consultant', 'Project Manager');
+
+      summary += suggestions.length ? 'Possible career directions: ' + suggestions.join(', ') : '';
+
+      document.getElementById('results').textContent = summary;
+    });
+  </script>
+</body>
+</html>
