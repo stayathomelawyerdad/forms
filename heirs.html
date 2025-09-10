@@ -59,7 +59,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="p-8 text-[#0A0A0A]"> <!-- Charcoal body text -->
-    <div class="max-w-7xl mx-auto bg-[#FFFFFF] rounded-xl shadow-lg p-8 space-y-8">
+    <div class="w-full mx-auto bg-[#FFFFFF] rounded-xl shadow-lg p-8 space-y-8">
         <!-- Main Header -->
         <header class="text-center">
             <h1 class="text-4xl sm:text-5xl font-extrabold text-[#001942]">Exhibit A: Intake Form</h1>
@@ -73,17 +73,17 @@
             <input type="text" id="clientName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white" placeholder="Enter full name">
         </div>
 
-        <!-- Main Content Grid -->
-        <main class="grid lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <main class="grid gap-8">
             <!-- Left Side: Marital History & Beneficiaries -->
-            <div class="lg:col-span-2 space-y-8">
+            <div class="space-y-8">
                 <!-- Marital History Section -->
                 <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
                     <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
                         <h2 class="text-2xl font-bold text-[#001942]">1. Marital History</h2>
                     </div>
                     <p class="text-gray-500 text-sm mb-4">Click "Add Marriage" to add a new marriage record.</p>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-visible">
                         <table id="maritalHistoryTable" class="w-full text-left text-sm text-gray-500 border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
@@ -117,7 +117,7 @@
                 <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
                     <h2 class="text-2xl font-bold text-[#001942] mb-4">2. Beneficiaries</h2>
                     <p class="text-gray-500 text-sm mb-4">List all beneficiaries, including heirs and legatees. This form collects all information required by Exhibit A.</p>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-visible">
                         <table id="beneficiariesTable" class="w-full text-left text-sm text-gray-500 border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
@@ -163,7 +163,7 @@
             </div>
 
             <!-- Right Side: Checklist Dashboard -->
-            <div class="lg:col-span-1">
+            <div>
                 <section class="bg-[#FFFFFF] p-6 rounded-lg shadow-inner sticky top-8">
                     <h2 class="text-2xl font-bold text-[#001942] mb-4">3. Checklist & Quality Rules</h2>
                     <p class="text-gray-500 text-sm mb-4">Track progress and identify any missing information. All checks should ideally be green.</p>
