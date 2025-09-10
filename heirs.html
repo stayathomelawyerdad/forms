@@ -55,6 +55,23 @@
             outline: 2px solid #001942;
             outline-offset: -2px;
         }
+
+        /* Ensure full table text is visible without inner scrolling */
+        .table-wrap {
+            overflow: visible !important;
+        }
+        .table-wrap table {
+            table-layout: auto !important;
+        }
+        .table-wrap th {
+            white-space: nowrap;
+            word-break: keep-all;
+            line-height: 1.2;
+        }
+        .table-wrap td {
+            white-space: normal;
+            word-break: normal;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -83,12 +100,12 @@
                         <h2 class="text-2xl font-bold text-[#001942]">1. Marital History</h2>
                     </div>
                     <p class="text-gray-500 text-sm mb-4">Click "Add Marriage" to add a new marriage record.</p>
-                    <div class="overflow-x-auto">
+                    <div class="table-wrap">
                         <table id="maritalHistoryTable" class="w-full text-left text-sm text-gray-500 border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 rounded-tl-lg">Marriage #</th>
-                                    <th scope="col" class="py-3 px-6 w-1/3">Spouse Name</th>
+                                    <th scope="col" class="py-3 px-6">Spouse Name</th>
                                     <th scope="col" class="py-3 px-6">Marriage Date</th>
                                     <th scope="col" class="py-3 px-6">How Ended</th>
                                     <th scope="col" class="py-3 px-6">End Date</th>
@@ -117,20 +134,20 @@
                 <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
                     <h2 class="text-2xl font-bold text-[#001942] mb-4">2. Beneficiaries</h2>
                     <p class="text-gray-500 text-sm mb-4">List all beneficiaries, including heirs and legatees. This form collects all information required by Exhibit A.</p>
-                    <div class="overflow-x-auto">
+                    <div class="table-wrap">
                         <table id="beneficiariesTable" class="w-full text-left text-sm text-gray-500 border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 rounded-tl-lg">#</th>
                                     <th scope="col" class="py-3 px-6">Type</th>
                                     <th scope="col" class="py-3 px-6">Relation</th>
-                                    <th scope="col" class="py-3 px-6 w-1/5">Name</th>
+                                    <th scope="col" class="py-3 px-6">Name</th>
                                     <th scope="col" class="py-3 px-6">Date of Birth</th>
                                     <th scope="col" class="py-3 px-6">Minor?</th>
                                     <th scope="col" class="py-3 px-6">Disabled?</th>
                                     <th scope="col" class="py-3 px-6">Survived?</th>
                                     <th scope="col" class="py-3 px-6">Date of Death</th>
-                                    <th scope="col" class="py-3 px-6 w-1/4">Address</th>
+                                    <th scope="col" class="py-3 px-6">Address</th>
                                     <th scope="col" class="py-3 px-6">Email</th>
                                     <th scope="col" class="py-3 px-6">Phone</th>
                                     <th scope="col" class="py-3 px-6">Notice to Rep?</th>
