@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exhibit A Intake Form</title>
+    <title>Estate Inventory Form</title>
     <!-- Load Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -22,7 +22,7 @@
             background: #94a3b8;
         }
 
-        /* Set Cifelli Law brand fonts */
+        /* Base fonts */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #F6F3EA; /* Off-White Base BG */
@@ -44,12 +44,16 @@
             color: #94a3b8;
         }
         
-        /* Button styles to match brand kit */
+        /* Primary button styling */
         .btn-primary {
             background-color: #8A6A33;
             color: #FFFFFF;
             font-weight: 600;
             transition: all 0.2s ease-in-out;
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem;
+            cursor: pointer;
         }
         .btn-primary:hover {
             outline: 2px solid #001942;
@@ -61,16 +65,16 @@
 <body class="p-8 text-[#0A0A0A]"> <!-- Charcoal body text -->
     <div class="max-w-7xl mx-auto bg-[#FFFFFF] rounded-xl shadow-lg p-8 space-y-8">
         <!-- Main Header -->
-        <header class="text-center">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#001942]">Exhibit A: Intake Form</h1>
+        <header class="text-center bg-[#001942] text-white p-8 rounded-lg">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white">Estate Inventory</h1>
             <div class="w-1/4 mx-auto mt-2 h-1 bg-[#8A6A33]"></div> <!-- Bronze rule divider -->
-            <p class="mt-4 text-gray-500">A complete sheet for collecting and validating key information based on all provided documents.</p>
+            <p class="mt-4 text-white">Document and validate key information for the estate.</p>
         </header>
-        
-        <!-- Client Name Section -->
+
+        <!-- Estate Name Section -->
         <div class="bg-[#F6F3EA] p-6 rounded-lg border border-gray-200 shadow-sm">
-            <label for="clientName" class="block text-sm font-semibold text-gray-700">Decedent's Full Name:</label>
-            <input type="text" id="clientName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white" placeholder="Enter full name">
+            <label for="estateName" class="block text-sm font-semibold text-[#0A0A0A]">Estate of:</label>
+            <input type="text" id="estateName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white" placeholder="Enter the estate name">
         </div>
 
         <!-- Main Content Grid -->
@@ -82,9 +86,9 @@
                     <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
                         <h2 class="text-2xl font-bold text-[#001942]">1. Marital History</h2>
                     </div>
-                    <p class="text-gray-500 text-sm mb-4">Click "Add Marriage" to add a new marriage record.</p>
+                    <p class="text-[#4A4A4A] text-sm mb-4">Click "Add Marriage" to add a new marriage record.</p>
                     <div class="overflow-x-auto">
-                        <table id="maritalHistoryTable" class="w-full text-left text-sm text-gray-500 border-collapse">
+                        <table id="maritalHistoryTable" class="w-full text-left text-sm text-[#0A0A0A] border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 rounded-tl-lg">Marriage #</th>
@@ -102,10 +106,8 @@
                             </tbody>
                             <tfoot class="bg-[#FFFFFF]">
                                 <tr>
-                                    <td colspan="8" class="p-3 text-center">
-                                        <button id="addMaritalRowBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-150 btn-primary">
-                                            Add Marriage
-                                        </button>
+                                    <td colspan="8" class="p-6 text-center">
+                                        <button id="addMaritalRowBtn" class="btn-primary">Add Marriage</button>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -116,9 +118,9 @@
                 <!-- Beneficiaries Section -->
                 <section class="bg-[#F6F3EA] p-6 rounded-lg shadow-inner">
                     <h2 class="text-2xl font-bold text-[#001942] mb-4">2. Beneficiaries</h2>
-                    <p class="text-gray-500 text-sm mb-4">List all beneficiaries, including heirs and legatees. This form collects all information required by Exhibit A.</p>
+                    <p class="text-[#4A4A4A] text-sm mb-4">List all beneficiaries, including heirs and legatees. This form collects all information required for the estate inventory.</p>
                     <div class="overflow-x-auto">
-                        <table id="beneficiariesTable" class="w-full text-left text-sm text-gray-500 border-collapse">
+                        <table id="beneficiariesTable" class="w-full text-left text-sm text-[#0A0A0A] border-collapse">
                             <thead class="text-xs text-[#001942] uppercase bg-[#F6F3EA] border-b-2 border-gray-300">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 rounded-tl-lg">#</th>
@@ -143,10 +145,8 @@
                             </tbody>
                             <tfoot class="bg-[#FFFFFF]">
                                 <tr>
-                                    <td colspan="15" class="p-3 text-center">
-                                        <button id="addBeneficiaryRowBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-150 btn-primary">
-                                            Add Beneficiary
-                                        </button>
+                                    <td colspan="15" class="p-6 text-center">
+                                        <button id="addBeneficiaryRowBtn" class="btn-primary">Add Beneficiary</button>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -155,10 +155,8 @@
                 </section>
                 
                 <!-- Complete Form Button -->
-                <div class="text-center mt-8">
-                    <button id="completeFormBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-colors duration-150 btn-primary">
-                        Complete & Export CSV
-                    </button>
+                <div class="text-center mt-12">
+                    <button id="completeFormBtn" class="btn-primary shadow-lg text-lg">Complete & Export CSV</button>
                 </div>
             </div>
 
@@ -166,27 +164,27 @@
             <div class="lg:col-span-1">
                 <section class="bg-[#FFFFFF] p-6 rounded-lg shadow-inner sticky top-8">
                     <h2 class="text-2xl font-bold text-[#001942] mb-4">3. Checklist & Quality Rules</h2>
-                    <p class="text-gray-500 text-sm mb-4">Track progress and identify any missing information. All checks should ideally be green.</p>
+                    <p class="text-[#4A4A4A] text-sm mb-4">Track progress and identify any missing information. All checks should ideally be green.</p>
                     <div class="space-y-4">
                         <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
-                            <h3 class="font-semibold text-gray-700">Total Marriages Recorded</h3>
+                            <h3 class="font-semibold text-[#0A0A0A]">Total Marriages Recorded</h3>
                             <div id="totalMarriagesCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
-                            <p class="text-xs text-gray-400 mt-1">Total marriage rows in the table.</p>
+                            <p class="text-xs text-[#4A4A4A] mt-1">Total marriage rows in the table.</p>
                         </div>
                         <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
-                            <h3 class="font-semibold text-gray-700">Total Children across Marriages</h3>
+                            <h3 class="font-semibold text-[#0A0A0A]">Total Children across Marriages</h3>
                             <div id="totalChildrenCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
-                            <p class="text-xs text-gray-400 mt-1">Calculated from the Marital History section.</p>
+                            <p class="text-xs text-[#4A4A4A] mt-1">Calculated from the Marital History section.</p>
                         </div>
                         <div class="bg-[#F6F3EA] rounded-lg p-4 shadow">
-                            <h3 class="font-semibold text-gray-700">Beneficiaries with 'Child' Relation</h3>
+                            <h3 class="font-semibold text-[#0A0A0A]">Beneficiaries with 'Child' Relation</h3>
                             <div id="childrenBeneficiaryCount" class="text-3xl font-bold mt-2 text-[#4F6092]">0</div>
-                            <p class="text-xs text-gray-400 mt-1">Counted from the Beneficiaries section.</p>
+                            <p class="text-xs text-[#4A4A4A] mt-1">Counted from the Beneficiaries section.</p>
                         </div>
-                        <div class="bg-[#F6F3EA] rounded-lg p-4 shadow transition-colors duration-300">
-                            <h3 class="font-semibold text-gray-700">Children Not Yet Represented</h3>
+                        <div id="deficitContainer" class="bg-white rounded-lg p-4 shadow transition-colors duration-300">
+                            <h3 class="font-semibold text-[#0A0A0A]">Children Not Yet Represented</h3>
                             <div id="deficitCount" class="text-3xl font-bold mt-2 text-red-600">0</div>
-                            <p class="text-xs text-gray-400 mt-1">This number should be 0 to ensure all children are listed as beneficiaries.</p>
+                            <p class="text-xs text-[#4A4A4A] mt-1">This number should be 0 to ensure all children are listed as beneficiaries.</p>
                         </div>
                     </div>
                 </section>
@@ -204,7 +202,7 @@
         const portionOptions = ['Preference', 'Equal'];
 
         // Get DOM elements
-        const clientNameInput = document.getElementById('clientName');
+        const estateNameInput = document.getElementById('estateName');
         const maritalHistoryTableBody = document.getElementById('maritalHistoryTable').querySelector('tbody');
         const beneficiariesTableBody = document.getElementById('beneficiariesTable').querySelector('tbody');
         const addMaritalRowBtn = document.getElementById('addMaritalRowBtn');
@@ -213,7 +211,7 @@
         const totalChildrenCount = document.getElementById('totalChildrenCount');
         const childrenBeneficiaryCount = document.getElementById('childrenBeneficiaryCount');
         const deficitCount = document.getElementById('deficitCount');
-        const deficitContainer = deficitCount.closest('.bg-white');
+        const deficitContainer = document.getElementById('deficitContainer');
         const completeFormBtn = document.getElementById('completeFormBtn');
 
         let maritalRows = 0;
@@ -369,6 +367,7 @@
             newRow.appendChild(createDeleteButtonCell('beneficiariesTable'));
             
             beneficiariesTableBody.appendChild(newRow);
+            updateChecklist();
 
             // Attach all event listeners to the new row
             const survivedSelect = survivedSelectCell.querySelector('select');
@@ -411,18 +410,18 @@
                         <td colspan="1" class="p-3"></td>
                         <td colspan="14" class="p-3">
                             <div class="p-4 rounded-lg border-2 border-dashed border-gray-300 space-y-2">
-                                <h4 class="font-semibold text-gray-700">Representative Details</h4>
+                                <h4 class="font-semibold text-[#0A0A0A]">Representative Details</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                     <div class="col-span-1">
-                                        <label class="block text-xs font-semibold text-gray-500">Representative Name</label>
+                                        <label class="block text-xs font-semibold text-[#4A4A4A]">Representative Name</label>
                                         <input type="text" placeholder="Full Name" class="w-full p-1 border border-gray-300 rounded-md rep-name bg-white" oninput="checkRepresentativeRow(this.closest('tr'))">
                                     </div>
                                     <div class="col-span-1 sm:col-span-2">
-                                        <label class="block text-xs font-semibold text-gray-500">Representative Address</label>
+                                        <label class="block text-xs font-semibold text-[#4A4A4A]">Representative Address</label>
                                         <input type="text" placeholder="Street, City, State ZIP" class="w-full p-1 border border-gray-300 rounded-md rep-address bg-white" oninput="checkRepresentativeRow(this.closest('tr'))">
                                     </div>
                                     <div class="col-span-1">
-                                        <label class="block text-xs font-semibold text-gray-500">Representative Role</label>
+                                        <label class="block text-xs font-semibold text-[#4A4A4A]">Representative Role</label>
                                         <select class="w-full p-1 border border-gray-300 rounded-md rep-role bg-white">
                                             <option value="">Select...</option>
                                             <option value="Guardian of the Estate">Guardian of the Estate</option>
@@ -431,8 +430,8 @@
                                         </select>
                                     </div>
                                     <div class="col-span-1 sm:col-span-2 lg:col-span-4">
-                                        <label class="block text-xs font-semibold text-gray-500">Notes</label>
-                                        <input type="text" placeholder="Notes for representative" class="w-full p-1 border border-gray-300 rounded-md bg-white">
+                                        <label class="block text-xs font-semibold text-[#4A4A4A]">Notes</label>
+                                        <input type="text" placeholder="Notes for representative" class="w-full p-1 border border-gray-300 rounded-md rep-notes bg-white">
                                     </div>
                                 </div>
                             </div>
@@ -567,17 +566,17 @@
 
         // Function to collect all data and export to CSV
         const exportToCsv = () => {
-            const clientName = clientNameInput.value.trim();
-            if (!clientName) {
-                alert('Please enter the client\'s full name before exporting.');
+            const estateName = estateNameInput.value.trim();
+            if (!estateName) {
+                alert('Please enter the estate name before exporting.');
                 return;
             }
             
             let csvContent = "";
             let dataRows = [];
 
-            // --- Client Info ---
-            dataRows.push(['Client Name', clientName]);
+            // --- Estate Info ---
+            dataRows.push(['Estate Name', estateName]);
 
             // --- Marital History ---
             const maritalHeader = ['Marriage #', 'Spouse Full Name', 'Marriage Date', 'How Ended', 'End Date', 'Spouse Alive?', 'Children Count'];
@@ -642,7 +641,7 @@
             // Set link attributes for download
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", "ExhibitA_Intake_Form.csv");
+            link.setAttribute("download", `Estate_Inventory_${estateName.replace(/\s+/g, '_')}.csv`);
             link.style.display = 'none';
             
             document.body.appendChild(link);
